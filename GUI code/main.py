@@ -33,23 +33,24 @@ class PlantApp(tk.Tk):
         self.frames = {}
 
         # Set up frames for each of the page classes
-        pages = (Page1, Page2, PlantContainer, PlantExpand)
+        pages = (Page1, Page2, PlantContainer)
         for F in pages:
             frame = F(self)
             self.frames[F] = frame
         print(self.frames)
-        self.show_frame(Page1)
+        self.show_frame(self.frames[Page1])
 
     # Function to show the desired game class, which is a subclass of tk.Frame
-    def show_frame(self, current_frame):
-        print("show_frame")
-        for frame in self.frames.values():
-            frame.pack_forget()
-        self.frames[current_frame].pack(fill=tk.X)
+    def show_frame(self, frame_to_show):
+        self.forget_frames()
+        frame_to_show.pack(expand=True, fill=tk.BOTH)
 
-    def clear_frame(self):
-        for widgets in self.winfo_children():
-            widgets.destroy()
+    def forget_frames(self):
+        widgets = self.winfo_children()
+        # Forget all the frames
+        for w in widgets:
+            if w.winfo_class() == "Frame":
+                w.pack_forget()
 
 
 class Page1(tk.Frame):
@@ -63,7 +64,7 @@ class Page1(tk.Frame):
 
     def create_widgets(self):
         self.plant_reccomendation_choice = tk.Button(self, text="plant reccomendations",
-                                                     command=lambda: self.master.show_frame(Page2))
+                                                     command=lambda: self.master.show_frame(self.master.frames[Page2]))
         self.plant_reccomendation_choice.grid(row=2, column=4, padx=10, pady=10)
 
 
@@ -151,7 +152,7 @@ class Page2(tk.Frame):
 
     def attributesdone(self):
         print('done', david.temperature, david.ease, david.size, david.brightness)
-        self.master.show_frame(PlantContainer)
+        self.master.show_frame(self.master.frames[PlantContainer])
 
 
 class PlantContainer(tk.Frame):
@@ -164,16 +165,40 @@ class PlantContainer(tk.Frame):
         for pb in self.frames:
             pb.pack(side=tk.LEFT, padx=5, pady=5)
 
+    def forget_frames(self):
+        widgets = self.winfo_children()
+        # Forget all the frames
+
+        for w in widgets:
+            if w.winfo_class() == "Frame":
+                w.pack_forget()
 
 class PlantBox(tk.Frame):
-
     def __init__(self, master, plant):
         super().__init__(master)
         self.master = master
+        self.frames={BoxPhase1:BoxPhase1(self,plant),BoxPhase2:BoxPhase2(self,plant)}
+        self.show_frame(self.frames[BoxPhase1])
+    def show_frame(self, frame_to_show):
+        self.forget_frames()
+        frame_to_show.pack(expand=True, fill=tk.BOTH)
+    def forget_frames(self):
+        widgets = self.winfo_children()
+        # Forget all the frames
+        for w in widgets:
+            if w.winfo_class() == "Frame":
+                w.pack_forget()
+class BoxPhase1(tk.Frame):
+
+    def __init__(self, master, plant):
+
+        super().__init__(master)
+        self.master = master
         self.name = plant.name
+
         with Image.open(plant.image) as im:
             im_resized = im.resize((100, 300))
-            #im_resized.show()
+            # im_resized.show()
             self.image = ImageTk.PhotoImage(im_resized)
             # self.image=tk.PhotoImage(file=Plantlist[val].image)
         self.imagelabel = tk.Label(self, image=self.image)
@@ -185,37 +210,41 @@ class PlantBox(tk.Frame):
 
     def expand(self, pl):
         print(f'expand {self.name}')
-        self.master.master.clear_frame()
-        self.master.master.__init__(pl)
-
-        self.master.master.show_frame(PlantExpand)
+        self.master.forget_frames()
+        self.master.show_frame(self.master.frames[BoxPhase2])
 
 
-class PlantExpand(tk.Frame):
 
-    def __init__(self, master=None):
+
+class BoxPhase2(tk.Frame):
+
+    def __init__(self,master,plant ):
         super().__init__(master)
-        p = self.master.expandedChoice
-        print('hiiiiiiiiiii', p.name)
+        self.p = plant
+        print('hiiiiiiiiiii', self.p.name)
         self.master = master
-        self.name = p.name
-        with Image.open(p.image) as im:
+        self.name = self.p.name
+        with Image.open(self.p.image) as im:
             im_resized = im.resize((100, 300))
-            #im_resized.show()
+            # im_resized.show()
             self.image = ImageTk.PhotoImage(im_resized)
         self.imagelabel = tk.Label(self, image=self.image)
         self.imagelabel.pack(side=tk.LEFT)
         self.textbox = tk.Label(self, bg='#D3AA32', text=
-        f'''Temperature range: {p.mintemp} - {p.maxtemp} \n 
-    Brightness level: {p.brightness}
-    Size: {p.size}
-    Ease of care: {p.ease}''', font=(44))
-        self.textboxtitle = tk.Label(self, text=p.name, font='bold')
+        f'''Temperature range: {self.p.mintemp} - {self.p.maxtemp} \n 
+    Brightness level: {self.p.brightness}
+    Size: {self.p.size}
+    Ease of care: {self.p.ease}''', font=(44))
+        self.textboxtitle = tk.Label(self, text=self.p.name, font='bold')
         self.textboxtitle.pack(side=tk.TOP)
         self.textbox.pack(side=tk.LEFT)
         self.minimisebutton = tk.Button(self, text='mimimise', bg='cyan',
-                                        command=lambda: self.master.show_frame(PlantContainer))
+                                        command=lambda: self.contract())
         self.minimisebutton.pack(side=tk.TOP)
+
+    def contract(self):
+        self.master.forget_frames()
+        self.master.show_frame(self.master.frames[BoxPhase1])
 
 
 rec_list = [0, 1]
