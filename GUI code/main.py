@@ -257,19 +257,5 @@ Plantlist = [
 david = UI(None, None, None, None)
 print(david.temperature)
 app = PlantApp(Plantlist[1], True, david)
-# app.config(bg="green")
 app.mainloop()
 
-# class PlantBox(tk.Frame):
-#   def __init__(self,val,master):
-#     super().__init__(master)
-#     self.master = master  
-#     self.name=Plantlist[val].name
-#     self.image=tk.PhotoImage(file=Plantlist[val].image)
-#     self.imagelabel=tk.Label(image=self.image)
-#     self.imagelabel.pack()
-#     self.boxcreate()
-#     #self.pack()
-#   def boxcreate(self):
-#     self.boxtitle=tk.Label(self,text=self.name,fg='yellow',font='bold')
-#     self.boxtitle.pack()
