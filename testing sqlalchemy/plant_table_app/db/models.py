@@ -33,7 +33,7 @@ class Plant(Base):
     ease_of_growth = Column(Integer, nullable=False)
     care_instructions = Column(String, default="")
     min_temp = Column(Integer, default=15)
-    max_temp = Column(Integer, default=25)
+    max_temp = Column(Integer, default=26)
     pests = relationship("Pest",
                          secondary=plant_pest,
                          back_populates="plants")

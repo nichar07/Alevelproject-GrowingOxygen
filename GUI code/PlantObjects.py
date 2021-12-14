@@ -11,10 +11,11 @@ class Plant():
 
     def scorechange(self, val):
         self.desirability_score += val
-
+    def __repr__(self):
+        return f'Plant : {self.name} Score : {self.desirability_score}'
 
 class UserInputs():
-    def __init__(self, temperature, ease, size, brightness):
+    def __init__(self, temperature,brightness,size, ease):
         self.temperature = temperature
         self.ease = ease
         self.size = size
