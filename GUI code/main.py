@@ -3,7 +3,7 @@ from PlantObjects import Plant as P
 from PlantObjects import UserInputs as UI
 import tkinter as tk
 from PIL import Image, ImageTk
-
+from calculations import PlantSort as PS
 
 class PlantApp(tk.Tk):
     """ PlantApp initialises a TkInstance
@@ -39,6 +39,10 @@ class PlantApp(tk.Tk):
             self.frames[F] = frame
         print(self.frames)
         self.show_frame(self.frames[Page1])
+    def sort_PlantList(self):
+        calculation=PS(david)
+        calculation.calculate()
+        self.frames[PlantContainer]=PlantContainer(self,calculation)
 
     # Function to show the desired game class, which is a subclass of tk.Frame
     def show_frame(self, frame_to_show):
@@ -151,19 +155,24 @@ class Page2(tk.Frame):
         david.setease(val)
 
     def attributesdone(self):
+        self.master.sort_PlantList()
         print('done', david.temperature, david.ease, david.size, david.brightness)
         self.master.show_frame(self.master.frames[PlantContainer])
 
 
 class PlantContainer(tk.Frame):
 
-    def __init__(self, master):
+    def __init__(self, master,Plist=None):
         super().__init__(master)
         self.master = master
-
-        self.frames = [PlantBox(self, plant) for plant in Plantlist]
-        for pb in self.frames:
-            pb.pack(side=tk.LEFT, padx=5, pady=5)
+        if not Plist:
+            self.frames = [PlantBox(self, plant) for plant in Plantlist]
+            for pb in self.frames:
+                pb.pack(side=tk.LEFT, padx=5, pady=5)
+        else:
+            self.frames = [PlantBox(self, plant) for plant in Plist.PlantList]
+            for pb in self.frames:
+                pb.pack(side=tk.LEFT, padx=5, pady=5)
 
     def forget_frames(self):
         widgets = self.winfo_children()
@@ -188,6 +197,7 @@ class PlantBox(tk.Frame):
         for w in widgets:
             if w.winfo_class() == "Frame":
                 w.pack_forget()
+
 class BoxPhase1(tk.Frame):
 
     def __init__(self, master, plant):
@@ -212,9 +222,6 @@ class BoxPhase1(tk.Frame):
         print(f'expand {self.name}')
         self.master.forget_frames()
         self.master.show_frame(self.master.frames[BoxPhase2])
-
-
-
 
 class BoxPhase2(tk.Frame):
 
@@ -255,6 +262,7 @@ Plantlist = [
 ]
 
 david = UI(None, None, None, None)
+
 print(david.temperature)
 app = PlantApp(Plantlist[1], True, david)
 app.mainloop()

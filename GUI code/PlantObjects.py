@@ -27,9 +27,9 @@ class UserInputs():
         print(self.temperature)
 
     def setease(self, val):
-        self.ease = val
+        self.ease = int(val)
         print('set', val)
-
+        print(type(val))
     def setsize(self, val):
         self.size = val
         print('set', val)
