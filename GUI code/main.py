@@ -33,18 +33,14 @@ class PlantApp(tk.Tk):
         self.frames = {}
 
         # Set up frames for each of the page classes
-        pages = (Page1, Page2, PlantContainer)
+        pages = (Menu, UserInputsMenu, PlantContainer)
         for F in pages:
             frame = F(self)
             self.frames[F] = frame
         print(self.frames)
-        self.show_frame(self.frames[Page1])
-    def sort_PlantList(self):
-        calculation=PS(david)
-        calculation.calculate()
-        self.frames[PlantContainer]=PlantContainer(self,calculation)
+        self.show_frame(self.frames[Menu])
 
-    # Function to show the desired game class, which is a subclass of tk.Frame
+    # Function to show the desired Page class, which is a subclass of tk.Frame
     def show_frame(self, frame_to_show):
         self.forget_frames()
         frame_to_show.pack(expand=True, fill=tk.BOTH)
@@ -55,9 +51,13 @@ class PlantApp(tk.Tk):
         for w in widgets:
             if w.winfo_class() == "Frame":
                 w.pack_forget()
+    def sort_PlantList(self):
+        #sorting the list of Plants
+        calculation=PS(david)
+        calculation.calculate()
+        self.frames[PlantContainer]=PlantContainer(self,calculation)
 
-
-class Page1(tk.Frame):
+class Menu(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
@@ -68,11 +68,11 @@ class Page1(tk.Frame):
 
     def create_widgets(self):
         self.plant_reccomendation_choice = tk.Button(self, text="plant reccomendations",
-                                                     command=lambda: self.master.show_frame(self.master.frames[Page2]))
+                                                     command=lambda: self.master.show_frame(self.master.frames[UserInputsMenu]))
         self.plant_reccomendation_choice.grid(row=2, column=4, padx=10, pady=10)
 
 
-class Page2(tk.Frame):
+class UserInputsMenu(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
@@ -83,12 +83,15 @@ class Page2(tk.Frame):
         self.master.config(bg='green')
 
     def plant_reccomendation(self):
-        # buttons for setting temperature
+        #Label fot the buttons
         self.templabel = tk.Label(self, text="What is the temperature \n of the location?", bg="green", fg="white")
         self.templabel.grid(row=2, column=1)
+        # buttons for setting temperature
         self.tempbutton1 = tk.Button(self, text="18°C", bg='#826644',
                                      command=lambda: david.settemp(18))
+        #PLacing the button into the grid
         self.tempbutton1.grid(row=2, column=2, padx=1, pady=3)
+
         self.tempbutton2 = tk.Button(self, text="20°C", bg='#826644',
                                      command=lambda: david.settemp(20))
         self.tempbutton2.grid(row=2, column=3, padx=1, pady=3)
@@ -106,7 +109,7 @@ class Page2(tk.Frame):
         self.easelabel = tk.Label(self, text="How easy do you want \n the plant care to be?", bg="green", fg="white")
         self.easelabel.grid(row=3, column=1)
         self.easeslider = tk.Scale(self, from_=0, to=10, length=450, tickinterval=5, orient='horizontal', bg="#67AB9F",
-                                   command=self.setease)
+                                   command=self.setease) #automatically passes self into the the function so doesn't need to be called
         self.easeslider.grid(row=3, column=2, columnspan=5)
         # buttons for size
         self.sizebutton1 = tk.Button(self, text="Small", bg="#67AB9F",
