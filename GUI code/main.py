@@ -216,7 +216,7 @@ class BoxPhase1(tk.Frame):
             # self.image=tk.PhotoImage(file=Plantlist[val].image)
         self.imagelabel = tk.Label(self, image=self.image)
         self.imagelabel.pack()
-        self.boxtitle = tk.Label(self, text=self.name, fg='yellow', font='bold')
+        self.boxtitle = tk.Label(self, text=self.name, fg='#5BC014', font='bold')
         self.boxtitle.pack()
         self.expandbutton = tk.Button(self, text='expand', bg='cyan', command=lambda: self.expand(plant))
         self.expandbutton.pack()
