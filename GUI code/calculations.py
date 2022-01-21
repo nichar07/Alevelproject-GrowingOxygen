@@ -1,14 +1,11 @@
-from PlantObjects import Plant as P
+from Database import PlantList as P
 
 from PlantObjects import UserInputs
 
 
 class PlantSort:
     def __init__(self, userinputs):
-        self.PlantList = [
-            P('Devils Ivy', 24, 18, 3, 2, 9, 'devils ivy.PNG'),
-            P('Peace Lily', 26, 20, 4, 1, 7, 'Peace Lily.png'),
-            P('Snake Plant', 24, 18, 4, 3, 4, 'snake plant.png')]
+        self.PlantList = P
         self.UI = userinputs
 
     def calculate(self):
@@ -25,12 +22,14 @@ class PlantSort:
                     i.scorechange(5)
                 elif self.UI.brightness == i.brightness + 1 or self.UI.brightness == i.brightness - 1:
                     i.scorechange(2)
+                elif self.UI.brightness == i.brightness + 2 or self.UI.brightness == i.brightness - 2:
+                    i.scorechange(1)
 
     def score_temp(self):
         if self.UI.temperature:
 
             for i in self.PlantList:
-
+            # seeing if it is within the temperature range
                 if i.mintemp <= self.UI.temperature <= i.maxtemp:
                     i.scorechange(5)
                 else:
@@ -38,7 +37,7 @@ class PlantSort:
 
     def find_temp_dist(self, tempval, max, min):
         # finding distance from ideal value of temperature in order to appropriately score the plant
-        a = [16, 18, 20, 22, 24, 26]
+        a = [18, 20, 22, 24, 26]
         if tempval > max:
             return a.index(tempval) - a.index(max)
         if tempval < min:
