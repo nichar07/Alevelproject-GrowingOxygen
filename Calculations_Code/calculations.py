@@ -1,6 +1,6 @@
-from Database import PlantList as P
+from Calculations_Code.Database import PlantList as P
 
-from PlantObjects import UserInputs
+from GUI_Code.PlantObjects import UserInputs
 
 
 class PlantSort:
@@ -14,6 +14,10 @@ class PlantSort:
         self.score_size()
         self.score_ease()
         self.PlantList.sort(key=lambda plant: plant.desirability_score, reverse=True)
+
+    def best(self):
+        self.calculate()
+        return self.PlantList[0]
 
     def score_bright(self):
         if self.UI.brightness:

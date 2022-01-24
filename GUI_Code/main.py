@@ -1,9 +1,10 @@
 # importing all the modules used in the code
-from Database import PlantList as P
+from Calculations_Code.calculations import PlantSort as PS
+from Calculations_Code.Database import PlantList as P
 from PlantObjects import UserInputs as UI
 import tkinter as tk
 from PIL import Image, ImageTk
-from calculations import PlantSort as PS
+
 
 
 class PlantApp(tk.Tk):
@@ -180,11 +181,9 @@ class PlantContainer(tk.Frame):
             count=0
             self.frames = [PlantBox(self, plant) for plant in Plist.PlantList]
             for pb in self.frames:
+
+                pb.grid(row=count//3,column=count%3)
                 count+=1
-                if count >= 2: pb.pack(side=tk.TOP, padx=5, pady=5)
-
-                else : pb.pack(side=tk.LEFT, padx=5, pady=5)
-
     def forget_frames(self):
         widgets = self.winfo_children()
         # Forget all the frames

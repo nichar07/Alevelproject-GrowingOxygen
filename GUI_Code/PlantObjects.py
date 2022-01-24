@@ -1,3 +1,4 @@
+
 class Plant():
     def __init__(self, name, maxtemp, mintemp, brightness, size, ease, careinfo, pests, image):
         self.name = name
