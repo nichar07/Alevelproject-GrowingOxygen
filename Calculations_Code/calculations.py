@@ -16,6 +16,7 @@ class PlantSort:
         self.PlantList.sort(key=lambda plant: plant.desirability_score, reverse=True)
 
     def best(self):
+
         self.calculate()
         return self.PlantList[0]
 
