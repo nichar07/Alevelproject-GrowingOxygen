@@ -68,8 +68,8 @@ class PlantSort:
                 else:
                     i.scorechange(value)
 
-
-daniel = UserInputs(20, 3, 2, 9)
-james = PlantSort(daniel)
-james.calculate()
-print([i for i in james.PlantList])
+#
+# daniel = UserInputs(20, 3, 2, 9)
+# james = PlantSort(daniel)
+# #james.calculate()
+# print([i for i in james.PlantList])
