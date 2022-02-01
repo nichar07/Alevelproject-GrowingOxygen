@@ -1,10 +1,9 @@
 # importing all the modules used in the code
 from Calculations_Code.calculations import PlantSort as PS
-from Calculations_Code.Database import PlantList as P
+from Calculations_Code.Database import PlantList as PL
 from PlantObjects import UserInputs as UI
 import tkinter as tk
 from PIL import Image, ImageTk
-
 
 
 class PlantApp(tk.Tk):
@@ -159,13 +158,13 @@ class UserInputsMenu(tk.Frame):
                                     command=lambda: self.attributesdone())
         self.DoneButton.grid(row=5, column=1, columnspan=9)
 
-    def setease(self, val):
-        david.setease(val)
-
     def attributesdone(self):
         self.master.sort_PlantList()
         print('done', david.temperature, david.ease, david.size, david.brightness)
         self.master.show_frame(self.master.frames[PlantContainer])
+
+    def setease(self, val):
+        david.setease(val)
 
 
 class PlantContainer(tk.Frame):
@@ -178,12 +177,12 @@ class PlantContainer(tk.Frame):
             for pb in self.frames:
                 pb.pack(side=tk.LEFT, padx=5, pady=5)
         else:
-            count=0
+            count = 0
             self.frames = [PlantBox(self, plant) for plant in Plist.PlantList]
             for pb in self.frames:
+                pb.grid(row=count // 3, column=count % 3)
+                count += 1
 
-                pb.grid(row=count//3,column=count%3)
-                count+=1
     def forget_frames(self):
         widgets = self.winfo_children()
         # Forget all the frames
@@ -235,12 +234,11 @@ class BoxPhase1(tk.Frame):
         self.master.show_frame(self.master.frames[BoxPhase2])
 
 
-
-
-
 class BoxPhase2(tk.Frame):
 
     def __init__(self, master, plant):
+        bright_dict = {1: 'No Sun', 2: 'Little Sun', 3: 'Semi Sun', 4: 'Bright Sun', 5: 'Full Sun'}
+        size_dict = {0: 'Small', 1: 'Medium', 2: 'Big', 3: 'Huge'}
         super().__init__(master)
         self.p = plant
 
@@ -253,8 +251,8 @@ class BoxPhase2(tk.Frame):
         self.imagelabel.pack(side=tk.LEFT)
         self.textbox = tk.Label(self, bg='#D3AA32', text=
         f'''Temperature range: {self.p.mintemp} - {self.p.maxtemp} \n 
-    Brightness level: {self.p.brightness}
-    Size: {self.p.size}
+    Brightness level: {bright_dict[self.p.brightness]}
+    Size: {size_dict[self.p.size]}
     Ease of care: {self.p.ease}
     Pests: {self.p.pests}
     {self.p.careinfo}''', font=(44))
@@ -264,13 +262,13 @@ class BoxPhase2(tk.Frame):
         self.minimisebutton = tk.Button(self, text='mimimise', bg='cyan',
                                         command=lambda: self.contract())
         self.minimisebutton.pack(side=tk.TOP)
+
     def contract(self):
         self.master.forget_frames()
         self.master.show_frame(self.master.frames[BoxPhase1])
 
 
-
-Plantlist = P
+Plantlist = PL
 
 david = UI(None, None, None, None)
 

@@ -1,7 +1,5 @@
 from Calculations_Code.Database import PlantList as P
 
-from GUI_Code.PlantObjects import UserInputs
-
 
 class PlantSort:
     def __init__(self, userinputs):
@@ -34,7 +32,7 @@ class PlantSort:
         if self.UI.temperature:
 
             for i in self.PlantList:
-            # seeing if it is within the temperature range
+                # seeing if it is within the temperature range
                 if i.mintemp <= self.UI.temperature <= i.maxtemp:
                     i.scorechange(5)
                 else:
@@ -44,9 +42,9 @@ class PlantSort:
         # finding distance from ideal value of temperature in order to appropriately score the plant
         a = [18, 20, 22, 24, 26]
         if tempval > max:
-            return a.index(tempval) - a.index(max)
+            return 5 - (a.index(tempval) - a.index(max))
         if tempval < min:
-            return a.index(min) - a.index(tempval)
+            return 5 - (a.index(min) - a.index(tempval))
 
     def score_size(self):
         if self.UI.size:

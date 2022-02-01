@@ -28,8 +28,11 @@ class Pests:
         self.parent = master
         self.list = [pest_dict[i] for i in pestlist]
 
-    def __repr__(self):
+    def __str__(self):
         return f'{"".join(self.list)}'
+
+    def __repr__(self):
+        return f'{self.parent.name} pests : {"".join(self.list)}'
 
 
 class UserInputs():
