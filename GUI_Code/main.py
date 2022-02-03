@@ -55,7 +55,7 @@ class PlantApp(tk.Tk):
 
     def sort_PlantList(self):
         # sorting the list of Plants
-        calculation = PS(david)
+        calculation = PS(GOxygen)
         calculation.calculate()
         self.frames[PlantContainer] = PlantContainer(self, calculation)
 
@@ -92,21 +92,21 @@ class UserInputsMenu(tk.Frame):
         self.templabel.grid(row=2, column=1)
         # buttons for setting temperature
         self.tempbutton1 = tk.Button(self, text="18°C", bg='#826644',
-                                     command=lambda: david.settemp(18))
+                                     command=lambda: GOxygen.settemp(18))
         # PLacing the button into the grid
         self.tempbutton1.grid(row=2, column=2, padx=1, pady=3)
 
         self.tempbutton2 = tk.Button(self, text="20°C", bg='#826644',
-                                     command=lambda: david.settemp(20))
+                                     command=lambda: GOxygen.settemp(20))
         self.tempbutton2.grid(row=2, column=3, padx=1, pady=3)
         self.tempbutton3 = tk.Button(self, text="22°C", bg='#826644',
-                                     command=lambda: david.settemp(22))
+                                     command=lambda: GOxygen.settemp(22))
         self.tempbutton3.grid(row=2, column=4, padx=1, pady=3)
         self.tempbutton4 = tk.Button(self, text="24°C", bg='#826644',
-                                     command=lambda: david.settemp(24))
+                                     command=lambda: GOxygen.settemp(24))
         self.tempbutton4.grid(row=2, column=5, padx=1, pady=3)
         self.tempbutton5 = tk.Button(self, text="26°C", bg='#826644',
-                                     command=lambda: david.settemp(26))
+                                     command=lambda: GOxygen.settemp(26))
         self.tempbutton5.grid(row=2, column=6, padx=1, pady=3)
         # slider for ease of care
 
@@ -117,16 +117,16 @@ class UserInputsMenu(tk.Frame):
         self.easeslider.grid(row=3, column=2, columnspan=5)
         # buttons for size
         self.sizebutton1 = tk.Button(self, text="Small", bg="#67AB9F",
-                                     command=lambda: david.setsize(0))
+                                     command=lambda: GOxygen.setsize(0))
         self.sizebutton1.grid(row=3, column=8, padx=2, pady=3)
         self.sizebutton2 = tk.Button(self, text="Medium", bg="#67AB9F",
-                                     command=lambda: david.setsize(1))
+                                     command=lambda: GOxygen.setsize(1))
         self.sizebutton2.grid(row=3, column=9, padx=2, pady=3)
         self.sizebutton3 = tk.Button(self, text="Big", bg="#67AB9F",
-                                     command=lambda: david.setsize(2))
+                                     command=lambda: GOxygen.setsize(2))
         self.sizebutton3.grid(row=4, column=8, padx=2, pady=3)
         self.sizebutton3 = tk.Button(self, text="Huge", bg="#67AB9F",
-                                     command=lambda: david.setsize(3))
+                                     command=lambda: GOxygen.setsize(3))
 
         self.sizebutton3.grid(row=4, column=9, padx=2, pady=3)
         self.sizelabel = tk.Label(self, text='how large do you want \nthe plant to be?', bg='green', fg='white')
@@ -135,23 +135,23 @@ class UserInputsMenu(tk.Frame):
         self.brightlabel = tk.Label(self, text='what is the brightness\n of the locaion?', bg='green', fg='white')
         self.brightlabel.grid(row=4, column=1)
         self.brightbutton1 = tk.Button(self, text="Full\n Sun", bg='#D3AA32',
-                                       command=lambda: david.setbright(5))
+                                       command=lambda: GOxygen.setbright(5))
         self.brightbutton1.grid(row=4, column=2)
 
         self.brightbutton2 = tk.Button(self, text="Bright\n Sun", bg='#D3AA32',
-                                       command=lambda: david.setbright(4))
+                                       command=lambda: GOxygen.setbright(4))
         self.brightbutton2.grid(row=4, column=3)
 
         self.brightbutton3 = tk.Button(self, text="Semi\n Sun", bg='#D3AA32',
-                                       command=lambda: david.setbright(3))
+                                       command=lambda: GOxygen.setbright(3))
         self.brightbutton3.grid(row=4, column=4)
 
         self.brightbutton4 = tk.Button(self, text="Little\n Sun", bg='#D3AA32',
-                                       command=lambda: david.setbright(2))
+                                       command=lambda: GOxygen.setbright(2))
         self.brightbutton4.grid(row=4, column=5)
 
         self.brightbutton5 = tk.Button(self, text="No\n Sun", bg='#D3AA32',
-                                       command=lambda: david.setbright(1))
+                                       command=lambda: GOxygen.setbright(1))
         self.brightbutton5.grid(row=4, column=6)
         # done button for next Page
         self.DoneButton = tk.Button(self, text='Done', bg='green', fg='yellow', width=95,
@@ -160,11 +160,11 @@ class UserInputsMenu(tk.Frame):
 
     def attributesdone(self):
         self.master.sort_PlantList()
-        print('done', david.temperature, david.ease, david.size, david.brightness)
+        print('done', GOxygen.temperature, GOxygen.ease, GOxygen.size, GOxygen.brightness)
         self.master.show_frame(self.master.frames[PlantContainer])
 
     def setease(self, val):
-        david.setease(val)
+        GOxygen.setease(val)
 
 
 class PlantContainer(tk.Frame):
@@ -270,8 +270,8 @@ class BoxPhase2(tk.Frame):
 
 Plantlist = PL
 
-david = UI(None, None, None, None)
+GOxygen = UI(None, None, None, None)
 
-print(david.temperature)
-app = PlantApp(Plantlist[1], True, david)
+print(GOxygen.temperature)
+app = PlantApp(Plantlist[1], True, GOxygen)
 app.mainloop()

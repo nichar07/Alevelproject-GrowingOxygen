@@ -20,13 +20,16 @@ class Plant():
         return f'Plant : {self.name} Score : {self.desirability_score}'
 
 
-pest_dict = {0: 'Aphids ', 1: 'Leaf Miners ', 2: 'GreenFlies '}
+pest_dict = {0: 'Aphids ', 1: 'Leaf Miners ', 2: 'GreenFlies ', 3: 'Spider Mites', 4: ' Mealybugs'}
 
 
 class Pests:
     def __init__(self, master, pestlist):
         self.parent = master
-        self.list = [pest_dict[i] for i in pestlist]
+        if pestlist:
+            self.list = [pest_dict[i] for i in pestlist]
+        else:
+            self.list='None'
 
     def __str__(self):
         return f'{"".join(self.list)}'
