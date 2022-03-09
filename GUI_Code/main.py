@@ -87,26 +87,29 @@ class UserInputsMenu(tk.Frame):
         self.master.config(bg='green')
 
     def plant_reccomendation(self):
+        var1=tk.IntVar(self)
+        var2 = tk.IntVar(self)
+        var3 = tk.IntVar(self)
         # Label fot the buttons
         self.templabel = tk.Label(self, text="What is the temperature \n of the location?", bg="green", fg="white")
         self.templabel.grid(row=2, column=1)
         # buttons for setting temperature
-        self.tempbutton1 = tk.Button(self, text="18°C", bg='#826644',
-                                     command=lambda: GOxygen.settemp(18))
+        self.tempbutton1 = tk.Radiobutton(self, text="18-19°C", bg='#826644',value=1,
+                                     variable=var1,command=lambda: GOxygen.settemp(18))
         # PLacing the button into the grid
         self.tempbutton1.grid(row=2, column=2, padx=1, pady=3)
 
-        self.tempbutton2 = tk.Button(self, text="20°C", bg='#826644',
-                                     command=lambda: GOxygen.settemp(20))
+        self.tempbutton2 = tk.Radiobutton(self, text="20-21°C", bg='#826644',value=2,
+                                     variable=var1,command=lambda: GOxygen.settemp(20))
         self.tempbutton2.grid(row=2, column=3, padx=1, pady=3)
-        self.tempbutton3 = tk.Button(self, text="22°C", bg='#826644',
-                                     command=lambda: GOxygen.settemp(22))
+        self.tempbutton3 = tk.Radiobutton(self, text="22-23°C", bg='#826644',value=3,
+                                     variable=var1,command=lambda: GOxygen.settemp(22))
         self.tempbutton3.grid(row=2, column=4, padx=1, pady=3)
-        self.tempbutton4 = tk.Button(self, text="24°C", bg='#826644',
-                                     command=lambda: GOxygen.settemp(24))
+        self.tempbutton4 = tk.Radiobutton(self, text="24-25°C", bg='#826644',value=4,
+                                     variable=var1,command=lambda: GOxygen.settemp(24))
         self.tempbutton4.grid(row=2, column=5, padx=1, pady=3)
-        self.tempbutton5 = tk.Button(self, text="26°C", bg='#826644',
-                                     command=lambda: GOxygen.settemp(26))
+        self.tempbutton5 = tk.Radiobutton(self, text="26-27°C", bg='#826644',value=5,
+                                     variable=var1,command=lambda: GOxygen.settemp(26))
         self.tempbutton5.grid(row=2, column=6, padx=1, pady=3)
         # slider for ease of care
 
@@ -116,42 +119,43 @@ class UserInputsMenu(tk.Frame):
                                    command=self.setease)  # automatically passes self into the the function so doesn't need to be called
         self.easeslider.grid(row=3, column=2, columnspan=5)
         # buttons for size
-        self.sizebutton1 = tk.Button(self, text="Small", bg="#67AB9F",
-                                     command=lambda: GOxygen.setsize(0))
+        self.sizebutton1 = tk.Radiobutton(self, text="Small", bg="#67AB9F",value=1,
+                                     variable=var2,command=lambda: GOxygen.setsize(0))
         self.sizebutton1.grid(row=3, column=8, padx=2, pady=3)
-        self.sizebutton2 = tk.Button(self, text="Medium", bg="#67AB9F",
-                                     command=lambda: GOxygen.setsize(1))
+        self.sizebutton2 = tk.Radiobutton(self, text="Medium", bg="#67AB9F",value=2,
+                                     variable=var2,command=lambda: GOxygen.setsize(1))
         self.sizebutton2.grid(row=3, column=9, padx=2, pady=3)
-        self.sizebutton3 = tk.Button(self, text="Big", bg="#67AB9F",
-                                     command=lambda: GOxygen.setsize(2))
+        self.sizebutton3 = tk.Radiobutton(self, text="Big", bg="#67AB9F",value=3,
+                                     variable=var2,command=lambda: GOxygen.setsize(2))
         self.sizebutton3.grid(row=4, column=8, padx=2, pady=3)
-        self.sizebutton3 = tk.Button(self, text="Huge", bg="#67AB9F",
-                                     command=lambda: GOxygen.setsize(3))
+        self.sizebutton4 = tk.Radiobutton(self, text="Huge", bg="#67AB9F",value=4,
+                                     variable=var2,command=lambda: GOxygen.setsize(3))
 
-        self.sizebutton3.grid(row=4, column=9, padx=2, pady=3)
+        self.sizebutton4.grid(row=4, column=9, padx=2, pady=3)
         self.sizelabel = tk.Label(self, text='how large do you want \nthe plant to be?', bg='green', fg='white')
         self.sizelabel.grid(row=2, column=8, columnspan=2)
+
         # buttons for brightness
-        self.brightlabel = tk.Label(self, text='what is the brightness\n of the locaion?', bg='green', fg='white')
+        self.brightlabel = tk.Label(self, text='what is the brightness\n of the location?', bg='green', fg='white')
         self.brightlabel.grid(row=4, column=1)
-        self.brightbutton1 = tk.Button(self, text="Full\n Sun", bg='#D3AA32',
-                                       command=lambda: GOxygen.setbright(5))
+        self.brightbutton1 = tk.Radiobutton(self, text="Full\n Sun", bg='#D3AA32',value=1,
+                                       variable=var3,command=lambda: GOxygen.setbright(5))
         self.brightbutton1.grid(row=4, column=2)
 
-        self.brightbutton2 = tk.Button(self, text="Bright\n Sun", bg='#D3AA32',
-                                       command=lambda: GOxygen.setbright(4))
+        self.brightbutton2 = tk.Radiobutton(self, text="Bright\n Sun", bg='#D3AA32',value=2,
+                                       variable=var3,command=lambda: GOxygen.setbright(4))
         self.brightbutton2.grid(row=4, column=3)
 
-        self.brightbutton3 = tk.Button(self, text="Semi\n Sun", bg='#D3AA32',
-                                       command=lambda: GOxygen.setbright(3))
+        self.brightbutton3 = tk.Radiobutton(self, text="Semi\n Sun", bg='#D3AA32',value=3,
+                                       variable=var3,command=lambda: GOxygen.setbright(3))
         self.brightbutton3.grid(row=4, column=4)
 
-        self.brightbutton4 = tk.Button(self, text="Little\n Sun", bg='#D3AA32',
-                                       command=lambda: GOxygen.setbright(2))
+        self.brightbutton4 = tk.Radiobutton(self, text="Little\n Sun", bg='#D3AA32',value=4,
+                                       variable=var3,command=lambda: GOxygen.setbright(2))
         self.brightbutton4.grid(row=4, column=5)
 
-        self.brightbutton5 = tk.Button(self, text="No\n Sun", bg='#D3AA32',
-                                       command=lambda: GOxygen.setbright(1))
+        self.brightbutton5 = tk.Radiobutton(self, text="No\n Sun", bg='#D3AA32',value=5,
+                                       variable=var3,command=lambda: GOxygen.setbright(1))
         self.brightbutton5.grid(row=4, column=6)
         # done button for next Page
         self.DoneButton = tk.Button(self, text='Done', bg='green', fg='yellow', width=95,
