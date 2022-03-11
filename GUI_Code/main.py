@@ -263,7 +263,7 @@ class BoxPhase2(tk.Frame):
         self.textboxtitle = tk.Label(self, text=self.p.name, font='bold')
         self.textboxtitle.pack(side=tk.TOP)
         self.textbox.pack(side=tk.LEFT)
-        self.minimisebutton = tk.Button(self, text='mimimise', bg='cyan',
+        self.minimisebutton = tk.Button(self, text='minimise', bg='cyan',
                                         command=lambda: self.contract())
         self.minimisebutton.pack(side=tk.TOP)
 
