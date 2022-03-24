@@ -2,27 +2,35 @@ from Calculations_Code.Database import PlantList as P
 
 
 class PlantSort:
+    # taking user inputs as a parameter
     def __init__(self, userinputs):
+        # creating an internal plant list
         self.PlantList = P
         self.UI = userinputs
 
     def calculate(self):
+        # running all the scoring procedures
         self.score_bright()
         self.score_temp()
         self.score_size()
         self.score_ease()
+        # sorting according to the score
         self.PlantList.sort(key=lambda plant: plant.desirability_score, reverse=True)
 
     def best(self):
-
+        # returns the best plant for testing
         self.calculate()
         return self.PlantList[0]
 
     def score_bright(self):
+        # checking if the user inputted a brightness value
         if self.UI.brightness:
+            # looping through the plant list
             for i in self.PlantList:
+                # if bang on the value gets 5
                 if self.UI.brightness == i.brightness:
                     i.scorechange(5)
+                # otherwise gets less
                 elif self.UI.brightness == i.brightness + 1 or self.UI.brightness == i.brightness - 1:
                     i.scorechange(2)
                 elif self.UI.brightness == i.brightness + 2 or self.UI.brightness == i.brightness - 2:
@@ -67,7 +75,3 @@ class PlantSort:
                     i.scorechange(value)
 
 #
-# daniel = UserInputs(20, 3, 2, 9)
-# james = PlantSort(daniel)
-# #james.calculate()
-# print([i for i in james.PlantList])
